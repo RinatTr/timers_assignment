@@ -39,6 +39,43 @@ A few notes here:
 * The computer should make a random choice (`Math.random` might be useful here) to come up with their play.
 * You should handle wins, losses, and ties.
 
+```js
+const readline = require('readline');
+
+const reader = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const computerChoice = () => {
+  let randomNum = Math.floor(Math.random()*3);
+  if (randomNum===2) {
+    return "Rock";
+  } else if (randomNum===1) {
+    return "Paper";
+  } else if (randomNum===0) {
+    return "Scissors";
+  }
+}
+
+reader.question(`Welcome to rock, paper, scissors. Please type 'r', 'p', or 's' to make a choice. \n`, (res) => {
+  console.log(`you replied: ${res}. Hmm...`)
+  setTimeout(() => {
+    let compChoice = computerChoice();
+    console.log(`The computer chose ${compChoice}`);
+    if (compChoice.toLowerCase().charAt(0)===res) {
+      console.log("Tie!");
+    } else if (compChoice==="Paper"&&res==="r" || compChoice==="Rock"&&res==="s" || compChoice==="Scissors"&&res==="p") {
+      console.log("The computer won.");
+    } else if (compChoice==="Rock"&&res==="p" || compChoice==="Scissors"&&res==="r" || compChoice==="Paper"&&res==="s") {
+      console.log("You Won!")
+    }
+  }, 5000)
+
+});
+
+```
+
 ## Bonus
 
 [Eliza](http://psych.fullerton.edu/mbirnbaum/psych101/Eliza.htm) is one of the world's first chatbots. She uses the user's response to come up with a question, mimicking a not-so-insightful therapist. She never says anything herself - she simply picks a detail the user wrote and asks a new question. Play around with her in the link above and see how this works.
